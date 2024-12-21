@@ -1,8 +1,9 @@
-import { JwtPayload, jwtDecode } from 'jwt-decode';
+// import { JwtPayload, jwtDecode } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 
 //JWT expiration and redirect to login page
-import { useEffect } from 'react';
-import AuthService from './utils/auth';
+// import { useEffect } from 'react';
+// import AuthService from './utils/auth';
 
 class AuthService {
   getProfile() {

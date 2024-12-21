@@ -6,7 +6,13 @@ import { UserLogin } from "../interfaces/UserLogin";
 
 // export { login };
 
-const login = async (userInfo: UserLogin) => {
+interface LoginResponse {
+  success: boolean;
+  token?: string;
+  message?: string;
+}
+
+const login = async (userInfo: UserLogin): Promise<LoginResponse> => {
   try {
     const response = await fetch('/auth/login', {
       method: 'POST',
