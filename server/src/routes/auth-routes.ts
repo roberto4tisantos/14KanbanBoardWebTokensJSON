@@ -10,6 +10,36 @@ export const login = async (req: Request, res: Response) => {
 const router = Router();
 
 // POST /login - Login a user
-router.post('/login', login);
+//router.post('/login', login);
+// POST /auth/login - Handle login
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Check if the user exists
+    const user = await User.findOne({ where: { username } });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid Credentials' });
+    }
+
+    // Compare the provided password with the stored password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid Credentials' });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign(
+      { username: user.username },
+      process.env.JWT_SECRET as string,
+      { expiresIn: '1h' } // Token expires in 1 hour
+    );
+
+    // Send the token to the client
+    res.json({ token });
+  } catch (err) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
 
 export default router;
