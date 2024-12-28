@@ -15,3 +15,9 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL
 );
+
+-- Insert values into the "users" table
+INSERT INTO users (name, username, email, password) VALUES
+('Alice Johnson', 'alicej', 'alice@example.com', 'password_hash_1'),
+('Bob Smith', 'bobsmith', 'bob@example.com', 'password_hash_2'),
+('Charlie Brown', 'charlieb', 'charlie@example.com', 'password_hash_3');
