@@ -1,6 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 export class Ticket extends Model {
 }
+// @ts-ignore
 export function TicketFactory(sequelize) {
     Ticket.init({
         id: {

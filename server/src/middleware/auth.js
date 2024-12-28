@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+
 export const authenticateToken = (req, res, next) => {
     // TODO: verify the token exists and add the user data to the request object
     // Get the token from the Authorization header
