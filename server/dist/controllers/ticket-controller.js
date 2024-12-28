@@ -1,7 +1,6 @@
 import { Ticket } from '../models/ticket.js';
 import { User } from '../models/user.js';
 // GET /tickets
-// @ts-ignore
 export const getAllTickets = async (_req, res) => {
     try {
         const tickets = await Ticket.findAll({
@@ -16,12 +15,10 @@ export const getAllTickets = async (_req, res) => {
         res.json(tickets);
     }
     catch (error) {
-        // @ts-ignore
         res.status(500).json({ message: error.message });
     }
 };
 // GET /tickets/:id
-// @ts-ignore
 export const getTicketById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -42,12 +39,10 @@ export const getTicketById = async (req, res) => {
         }
     }
     catch (error) {
-        // @ts-ignore
         res.status(500).json({ message: error.message });
     }
 };
 // POST /tickets
-// @ts-ignore
 export const createTicket = async (req, res) => {
     const { name, status, description, assignedUserId } = req.body;
     try {
@@ -55,25 +50,19 @@ export const createTicket = async (req, res) => {
         res.status(201).json(newTicket);
     }
     catch (error) {
-        // @ts-ignore
         res.status(400).json({ message: error.message });
     }
 };
 // PUT /tickets/:id
-// @ts-ignore
 export const updateTicket = async (req, res) => {
     const { id } = req.params;
     const { name, status, description, assignedUserId } = req.body;
     try {
         const ticket = await Ticket.findByPk(id);
         if (ticket) {
-            // @ts-ignore
             ticket.name = name;
-            // @ts-ignore
             ticket.status = status;
-            // @ts-ignore
             ticket.description = description;
-            // @ts-ignore
             ticket.assignedUserId = assignedUserId;
             await ticket.save();
             res.json(ticket);
@@ -83,12 +72,10 @@ export const updateTicket = async (req, res) => {
         }
     }
     catch (error) {
-        // @ts-ignore
         res.status(400).json({ message: error.message });
     }
 };
 // DELETE /tickets/:id
-// @ts-ignore
 export const deleteTicket = async (req, res) => {
     const { id } = req.params;
     try {
@@ -102,7 +89,6 @@ export const deleteTicket = async (req, res) => {
         }
     }
     catch (error) {
-        // @ts-ignore
         res.status(500).json({ message: error.message });
     }
 };
