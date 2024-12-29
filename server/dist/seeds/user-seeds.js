@@ -1,5 +1,6 @@
 import { User } from '../models/user.js';
 export const seedUsers = async () => {
+    // @ts-ignore
     await User.bulkCreate([
         { username: 'JollyGuru', password: 'password' },
         { username: 'SunnyScribe', password: 'password' },

@@ -1,8 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config();
+
 import { Sequelize } from 'sequelize';
 import { UserFactory } from './user.js';
 import { TicketFactory } from './ticket.js';
+
 const sequelize = process.env.DB_URL
     ? new Sequelize(process.env.DB_URL)
     : new Sequelize(process.env.DB_NAME || '', process.env.DB_USER || '', process.env.DB_PASSWORD, {
@@ -14,6 +16,8 @@ const sequelize = process.env.DB_URL
     });
 const User = UserFactory(sequelize);
 const Ticket = TicketFactory(sequelize);
+// @ts-ignore
 User.hasMany(Ticket, { foreignKey: 'assignedUserId' });
+// @ts-ignore
 Ticket.belongsTo(User, { foreignKey: 'assignedUserId', as: 'assignedUser' });
 export { sequelize, User, Ticket };
