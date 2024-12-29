@@ -1,6 +1,8 @@
-import { User } from '../models/user.js';
+import { Request, Response } from 'express';
+import { User } from '../models/user.jsx';
+
 // GET /Users
-export const getAllUsers = async (_req, res) => {
+export const getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll({
             attributes: { exclude: ['password'] }

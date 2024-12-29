@@ -1,8 +1,16 @@
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-export const authenticateToken = (req, res, next) => {
+// interface DecodedToken {
+//     username: string;
+//     iat: number;
+//     exp: number;
+//   }
+
+export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
     // TODO: verify the token exists and add the user data to the request object
+    const authHeader = req.header('Authorization');
     // Get the token from the Authorization header
     const token = req.header('Authorization')?.replace('Bearer ', '');
     if (!token) {
@@ -14,7 +22,9 @@ export const authenticateToken = (req, res, next) => {
             return res.status(403).json({ message: 'Invalid Token' });
         }
         // Attach the user data to the request object
-        req.user = decoded.username;
+        //const decodedToken = decoded as DecodedToken;
+        req.user = { username: decodedToken.username };
+        //req.user = decoded.username;
         next();
     });
 };

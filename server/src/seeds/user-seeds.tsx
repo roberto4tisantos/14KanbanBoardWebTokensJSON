@@ -1,4 +1,4 @@
-import { User } from '../models/user.js';
+import { User } from '../models/user.jsx';
 
 export const seedUsers = async () => {
   await User.bulkCreate([

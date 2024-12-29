@@ -1,6 +1,8 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
+      //"module": "ESNext",      
+
       /* Modules */
       "rootDir": "src" /* Specify the root folder within your source files. */,
   
@@ -10,7 +12,15 @@
       "moduleResolution": "node",
       "esModuleInterop": true,
       "resolveJsonModule": true,
-      "allowSyntheticDefaultImports": true      
+      "allowSyntheticDefaultImports": true,
+      "target": "ES6",
+      "module": "commonjs",
+      "jsx": "react", // Or "react-jsx" for React 17+
+      "strict": true,
+      //"esModuleInterop": true,
+      //"moduleResolution": "node",
+      //"outDir": "./dist",
+      "skipLibCheck": true            
     },
     "include": ["src"],
     "typeRoots": ["./node_modules/@types", "./src/types"]

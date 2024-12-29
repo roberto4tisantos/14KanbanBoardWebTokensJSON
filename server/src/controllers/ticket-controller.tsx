@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { Ticket } from '../models/ticket.js';
-import { User } from '../models/user.js';
+import { Ticket } from '../models/ticket.jsx';
+import { User } from '../models/user.jsx';
 
 // GET /tickets
 export const getAllTickets = async (_req: Request, res: Response) => {
