@@ -1,16 +1,20 @@
 import { Router } from 'express';
+import { Request, Response } from 'express';
 import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-export const login = async (req, res) => {
+
+export const login = async (req: Request, res: Response) => {
     // TODO: If the user exists and the password is correct, return a JWT token
 };
 const router = Router();
 // POST /login - Login a user
 //router.post('/login', login);
 // POST /auth/login - Handle login
-router.post('/login', async (req, res) => {
+router.post('/login', async (req: Request, res: Response) => {
     const { username, password } = req.body;
+    //hash the password from 'req.body' and save to newUser
+    username.password = await bcrypt.hash(req.body.password, 10);    
     try {
         // Check if the user exists
         const user = await User.findOne({ where: { username } });
