@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { ticketRouter } from './ticket-routes.jsx';
-import { userRouter } from './user-routes.jsx';
+import { ticketRouter } from './ticket-routes.js';
+import { userRouter } from './user-routes.js';
 
 const router = Router();
 

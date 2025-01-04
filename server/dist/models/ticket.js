@@ -1,32 +1,27 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Ticket = void 0;
-exports.TicketFactory = TicketFactory;
-const sequelize_1 = require("sequelize");
-class Ticket extends sequelize_1.Model {
+import { DataTypes, Model } from 'sequelize';
+export class Ticket extends Model {
 }
-exports.Ticket = Ticket;
-function TicketFactory(sequelize) {
+export function TicketFactory(sequelize) {
     Ticket.init({
         id: {
-            type: sequelize_1.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         name: {
-            type: sequelize_1.DataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         status: {
-            type: sequelize_1.DataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         description: {
-            type: sequelize_1.DataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         assignedUserId: {
-            type: sequelize_1.DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: true,
         },
     }, {

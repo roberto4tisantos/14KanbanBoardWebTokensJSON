@@ -1,21 +1,9 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUser = exports.updateUser = exports.createUser = exports.getUserById = exports.getAllUsers = void 0;
-//import { User } from '../models/user.jsx';
-const user_1 = require("../models/user");
+import { User } from '../models/user.js';
+// import { User } from '../models/user';
 // GET /Users
-const getAllUsers = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getAllUsers = async (_req, res) => {
     try {
-        const users = yield user_1.User.findAll({
+        const users = await User.findAll({
             attributes: { exclude: ['password'] }
         });
         res.json(users);
@@ -23,13 +11,12 @@ const getAllUsers = (_req, res) => __awaiter(void 0, void 0, void 0, function* (
     catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-exports.getAllUsers = getAllUsers;
+};
 // GET /Users/:id
-const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getUserById = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = yield user_1.User.findByPk(id, {
+        const user = await User.findByPk(id, {
             attributes: { exclude: ['password'] }
         });
         if (user) {
@@ -42,30 +29,28 @@ const getUserById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-exports.getUserById = getUserById;
+};
 // POST /Users
-const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const createUser = async (req, res) => {
     const { username, password } = req.body;
     try {
-        const newUser = yield user_1.User.create({ username, password });
+        const newUser = await User.create({ username, password });
         res.status(201).json(newUser);
     }
     catch (error) {
         res.status(400).json({ message: error.message });
     }
-});
-exports.createUser = createUser;
+};
 // PUT /Users/:id
-const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const updateUser = async (req, res) => {
     const { id } = req.params;
     const { username, password } = req.body;
     try {
-        const user = yield user_1.User.findByPk(id);
+        const user = await User.findByPk(id);
         if (user) {
             user.username = username;
             user.password = password;
-            yield user.save();
+            await user.save();
             res.json(user);
         }
         else {
@@ -75,15 +60,14 @@ const updateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         res.status(400).json({ message: error.message });
     }
-});
-exports.updateUser = updateUser;
+};
 // DELETE /Users/:id
-const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = yield user_1.User.findByPk(id);
+        const user = await User.findByPk(id);
         if (user) {
-            yield user.destroy();
+            await user.destroy();
             res.json({ message: 'User deleted' });
         }
         else {
@@ -93,5 +77,4 @@ const deleteUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-exports.deleteUser = deleteUser;
+};

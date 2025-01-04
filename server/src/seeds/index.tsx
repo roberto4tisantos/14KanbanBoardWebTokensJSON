@@ -1,6 +1,6 @@
-import { seedUsers } from './user-seeds.jsx';
-import { seedTickets } from './ticket-seeds.jsx';
-import { sequelize } from '../models/index.jsx';
+import { seedUsers } from './user-seeds.js';
+import { seedTickets } from './ticket-seeds.js';
+import { sequelize } from '../models/index.js';
 
 const seedAll = async (): Promise<void> => {
   try {

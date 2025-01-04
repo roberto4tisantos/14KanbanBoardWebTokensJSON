@@ -1,27 +1,13 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-      //"module": "ESNext",      
-
       /* Modules */
       "rootDir": "src" /* Specify the root folder within your source files. */,
   
       /* Emit */
-      "outDir": "dist", /* Specify an output folder for all emitted files. */
+      "outDir": "dist" /* Specify an output folder for all emitted files. */
       // "noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "resolveJsonModule": true,
-      "allowSyntheticDefaultImports": true,
-      "target": "ES6",
-      "module": "commonjs",
-      "jsx": "react", // Or "react-jsx" for React 17+
-      "strict": true,
-      //"esModuleInterop": true,
-      //"moduleResolution": "node",
-      //"outDir": "./dist",
-      "skipLibCheck": true            
     },
     "include": ["src"],
     "typeRoots": ["./node_modules/@types", "./src/types"]
-}
+}  

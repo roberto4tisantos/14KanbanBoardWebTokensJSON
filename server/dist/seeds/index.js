@@ -1,24 +1,13 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const user_seeds_jsx_1 = require("./user-seeds.jsx");
-const ticket_seeds_jsx_1 = require("./ticket-seeds.jsx");
-const index_jsx_1 = require("../models/index.jsx");
-const seedAll = () => __awaiter(void 0, void 0, void 0, function* () {
+import { seedUsers } from './user-seeds.js';
+import { seedTickets } from './ticket-seeds.js';
+import { sequelize } from '../models/index.js';
+const seedAll = async () => {
     try {
-        yield index_jsx_1.sequelize.sync({ force: true });
+        await sequelize.sync({ force: true });
         console.log('\n----- DATABASE SYNCED -----\n');
-        yield (0, user_seeds_jsx_1.seedUsers)();
+        await seedUsers();
         console.log('\n----- USERS SEEDED -----\n');
-        yield (0, ticket_seeds_jsx_1.seedTickets)();
+        await seedTickets();
         console.log('\n----- TICKETS SEEDED -----\n');
         process.exit(0);
     }
@@ -26,5 +15,5 @@ const seedAll = () => __awaiter(void 0, void 0, void 0, function* () {
         console.error('Error seeding database:', error);
         process.exit(1);
     }
-});
+};
 seedAll();

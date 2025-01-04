@@ -1,24 +1,12 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteTicket = exports.updateTicket = exports.createTicket = exports.getTicketById = exports.getAllTickets = void 0;
-const ticket_jsx_1 = require("../models/ticket.jsx");
-const user_jsx_1 = require("../models/user.jsx");
+import { Ticket } from '../models/ticket.js';
+import { User } from '../models/user.js';
 // GET /tickets
-const getAllTickets = (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getAllTickets = async (_req, res) => {
     try {
-        const tickets = yield ticket_jsx_1.Ticket.findAll({
+        const tickets = await Ticket.findAll({
             include: [
                 {
-                    model: user_jsx_1.User,
+                    model: User,
                     as: 'assignedUser', // This should match the alias defined in the association
                     attributes: ['username'], // Include only the username attribute
                 },
@@ -29,16 +17,15 @@ const getAllTickets = (_req, res) => __awaiter(void 0, void 0, void 0, function*
     catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-exports.getAllTickets = getAllTickets;
+};
 // GET /tickets/:id
-const getTicketById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const getTicketById = async (req, res) => {
     const { id } = req.params;
     try {
-        const ticket = yield ticket_jsx_1.Ticket.findByPk(id, {
+        const ticket = await Ticket.findByPk(id, {
             include: [
                 {
-                    model: user_jsx_1.User,
+                    model: User,
                     as: 'assignedUser', // This should match the alias defined in the association
                     attributes: ['username'], // Include only the username attribute
                 },
@@ -54,32 +41,30 @@ const getTicketById = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-exports.getTicketById = getTicketById;
+};
 // POST /tickets
-const createTicket = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const createTicket = async (req, res) => {
     const { name, status, description, assignedUserId } = req.body;
     try {
-        const newTicket = yield ticket_jsx_1.Ticket.create({ name, status, description, assignedUserId });
+        const newTicket = await Ticket.create({ name, status, description, assignedUserId });
         res.status(201).json(newTicket);
     }
     catch (error) {
         res.status(400).json({ message: error.message });
     }
-});
-exports.createTicket = createTicket;
+};
 // PUT /tickets/:id
-const updateTicket = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const updateTicket = async (req, res) => {
     const { id } = req.params;
     const { name, status, description, assignedUserId } = req.body;
     try {
-        const ticket = yield ticket_jsx_1.Ticket.findByPk(id);
+        const ticket = await Ticket.findByPk(id);
         if (ticket) {
             ticket.name = name;
             ticket.status = status;
             ticket.description = description;
             ticket.assignedUserId = assignedUserId;
-            yield ticket.save();
+            await ticket.save();
             res.json(ticket);
         }
         else {
@@ -89,15 +74,14 @@ const updateTicket = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     catch (error) {
         res.status(400).json({ message: error.message });
     }
-});
-exports.updateTicket = updateTicket;
+};
 // DELETE /tickets/:id
-const deleteTicket = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const deleteTicket = async (req, res) => {
     const { id } = req.params;
     try {
-        const ticket = yield ticket_jsx_1.Ticket.findByPk(id);
+        const ticket = await Ticket.findByPk(id);
         if (ticket) {
-            yield ticket.destroy();
+            await ticket.destroy();
             res.json({ message: 'Ticket deleted' });
         }
         else {
@@ -107,5 +91,4 @@ const deleteTicket = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     catch (error) {
         res.status(500).json({ message: error.message });
     }
-});
-exports.deleteTicket = deleteTicket;
+};
