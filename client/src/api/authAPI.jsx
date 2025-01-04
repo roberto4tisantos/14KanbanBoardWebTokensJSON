@@ -30,6 +30,10 @@
 const login = async (userInfo) => {
     try {
         const response = await fetch('http://localhost:3001/auth', {
+            // method: 'GET',  // Or POST if your backend expects a POST request
+            // headers: {
+            //     'Content-Type': 'application/json'
+            // },            
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -38,7 +42,7 @@ const login = async (userInfo) => {
         });
 
         // Check if response is empty before trying to parse JSON
-        const textResponse = await response.text(); // Get the raw response body as text
+        const textResponse = await response.json();  //text(); // Get the raw response body as text
         let data;
 
         // Try parsing the text response as JSON
