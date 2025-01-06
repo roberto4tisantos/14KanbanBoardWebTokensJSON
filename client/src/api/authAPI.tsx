@@ -14,6 +14,7 @@ interface LoginResponse {
 
 const login = async (userInfo: UserLogin): Promise<LoginResponse> => {
   try {
+    console.log("testing login")
     const response = await fetch('/auth/login', {
       method: 'POST',
       headers: {
